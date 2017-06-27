@@ -72,8 +72,30 @@ public class GeneratorReal {
 			singlePage = singlePage.split(" ")[0];
 		}
 		System.out.println("Was ist " + getProperty().replace("_", "") + " von " + singlePage + "?");
-		quest = "Was ist " + getProperty().replace("_", "") + " von " + singlePage + "?";
+		String label = prop.getFact(wiki, getProperty(), "label");
+		String start = prop.getFact(wiki, getProperty(), "Unterattribut_von");
+		
+		if (label == null || start == null) {
+			quest = "Was ist " +  getProperty().replace("_", "") + " von " + singlePage + "?";
+			return quest;
+		}
+		
+		String tail = label + " " + singlePage + "?";
+		if (label.contains("+")) {
+			tail = label.replace("+", singlePage) + "?";
+		}
+		
+		String mid = " ";
+		
+		if (label.startsWith("9")) {
+			mid = "";
+		}
+		
+		
+		quest = "Was ist " +  getProperty().replace("_", "") + " von " + singlePage + "?"; 
 
+		quest = start + mid + tail;
+		
 		return quest;
 	}
 

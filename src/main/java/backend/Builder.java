@@ -49,6 +49,7 @@ public class Builder {
 
 		
 		}catch (Exception e) {
+			e.printStackTrace();
 			giveMeBack = "{ \"fullQuiz\" : [ { \"qId\": \"q1\", \"Question\": \"YourSMW link is not valid, or the SWM is offline. Please check.\", \"rightAnswer\": \"Try Again\", \"PossibleAnswers\": [";
 			for (int i = 0; i<answers ; i++){
 				giveMeBack += "{ \"aId\" : \"q1\", \"Answer\":\"NotAvailable\" }";

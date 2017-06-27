@@ -28,6 +28,57 @@ public class Prop {
 		return doc;
 	}
 
+	public String getFact(String wiki, String property, String fact) {
+		
+		String get = null;
+		
+		String content = "[[Attribut:" + property + "]]|?" + fact; 
+		
+		try {
+			
+			get = "api.php?action=ask&format=xml&query=" + URLEncoder.encode(content, "UTF-8");
+			
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		Document doc = null;
+		try {
+			doc = getHTML(wiki, get);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if (doc == null) {
+			return null;
+		}
+		
+		doc.getDocumentElement().normalize();
+		NodeList nList = doc.getElementsByTagName("value");
+		if (nList == null || nList.getLength() == 0) {
+			return null;
+		}
+		Element e = null;
+		e = (Element) nList.item(0);
+	
+		System.out.println("Docoooooooo");
+		System.out.println(doc.toString());
+		
+		if (e == null || !e.hasAttribute("fulltext")) {
+			return null;
+		}
+		
+		String value = e.getAttribute("fulltext");
+		
+		if (value.startsWith("Attribut:")) {
+			value = value.replaceFirst("Attribut:", "");
+		}
+		System.out.println("TESTOOOOOOOOO " + value);
+		
+		return value;
+	}
+	
 	public HashMap<String, Set<String>> getProp(String wiki, String subject) {
 		HashMap<String, Set<String>> property = new HashMap<String, Set<String>>();
 		Set<String> value = new HashSet<String>();
