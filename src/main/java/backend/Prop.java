@@ -114,15 +114,33 @@ public class Prop {
 					if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
 						Element temp = (Element) tempNode;
 						String answer = (temp.getAttribute("item").split("#")[0]).replace("_", " ");
+						System.out.println(answer);
 						if (answer.startsWith("1/20") || answer.startsWith("1/19")) {
 							String tempString[] = answer.split("/");
+							System.out.println("DeBug: " + tempString[0] + " " + tempString[0]);
+							if (tempString.length < 4) {
+								String[] newTemp = new String[4];
+								newTemp[0] = tempString[0];
+								newTemp[1] = tempString[1];
+								newTemp[2] = "0";
+								newTemp[3] = "0";
+								tempString = newTemp;
+							}
 							if (Integer.parseInt(tempString[2]) < 10) {
 								tempString[2] = "0" + tempString[2];
 							}
 							if (Integer.parseInt(tempString[3]) < 10) {
 								tempString[3] = "0" + tempString[3];
 							}
-							answer = tempString[3] + "." + tempString[2] + "." + tempString[1];
+							
+							if (Integer.parseInt(tempString[2]) < 1) {
+								answer = tempString[1];
+							} else {
+								answer = tempString[3] + "." + tempString[2] + "." + tempString[1];
+							}
+							
+							
+							
 						}
 						if (subject.contains(answer)==false || prop.contains("Name")) {
 							System.out.println("Antwortvon" + prop + ":" + answer);

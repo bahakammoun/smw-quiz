@@ -88,6 +88,7 @@ public class GeneratorReal {
 		String mid = " ";
 		
 		if (label.startsWith("9")) {
+			tail = tail.substring(1, tail.length());
 			mid = "";
 		}
 		
